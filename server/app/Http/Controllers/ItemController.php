@@ -26,7 +26,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        // not needed here.
+        throw new Exception('this is an API, there is nothing to serve from here.');
     }
 
     /**
@@ -37,7 +38,17 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate the input
+        $validatedData = $request->validate(['title' => 'required']);
+        
+        $item = new Item;
+        $item->title = $validatedData['title'];
+        $item->completed = 0;
+        $item->save();
+
+        ItemResource::withoutWrapping();
+        return new ItemResource($item);
+        
     }
 
     /**
@@ -61,7 +72,8 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        // not need here.
+        throw new Exception('this is an API, there is nothing to serve from here.');
     }
 
     /**
@@ -73,7 +85,16 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate the input
+        $validatedData = $request->validate(['title' => 'required', 'completed' => 'integer']);
+        
+        $item = Item::find($id);
+        $item->title = $validatedData['title'];
+        $item->completed = $validatedData['completed'];
+        $item->save();
+
+        ItemResource::withoutWrapping();
+        return new ItemResource($item);
     }
 
     /**
@@ -84,6 +105,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
     }
 }
