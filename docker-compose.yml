@@ -11,8 +11,7 @@ services:
     depends_on:
       - server
     environment:
-      API_HOST: http://local.io
-      API_PORT: 8000
+      env_file: ./client/.env
     command: npm start
 
   server:
