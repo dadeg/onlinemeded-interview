@@ -10,8 +10,8 @@ class ListItems extends Component {
 
     return (
       <ul>
-        {items.map((item) => {
-            return <Item item={item} completeAction={completeAction} deleteAction={deleteAction} />
+        {items.map((item, i) => {
+            return <Item item={item} completeAction={completeAction} deleteAction={deleteAction} key={i} />
         })}
       </ul>
     );
