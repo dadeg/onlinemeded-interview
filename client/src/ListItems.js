@@ -9,11 +9,14 @@ class ListItems extends Component {
     const { completeAction, deleteAction, items } = this.props;
 
     return (
-      <ul>
-        {items.map((item, i) => {
-            return <Item item={item} completeAction={completeAction} deleteAction={deleteAction} key={i} />
-        })}
-      </ul>
+      <table>
+        <thead><tr><td>Task</td><td></td><td></td></tr></thead>
+        <tbody>
+            {items.map((item, i) => {
+                return <Item item={item} completeAction={completeAction} deleteAction={deleteAction} key={i} />
+            })}
+        </tbody>
+      </table>
     );
   }
 }

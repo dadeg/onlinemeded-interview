@@ -7,13 +7,13 @@ class ListItems extends Component {
     
     const { completeAction, deleteAction, item } = this.props;
 
-    const completedInfo = item.attributes.completed ? <span>completed!</span> : <span onClick={() => { completeAction(item.id) }}>complete</span>
+    const completedInfo = item.attributes.completed ? <td>done!</td> : <td onClick={() => { completeAction(item.id) }}>complete</td>
     return (
-        <div>
-            <span onClick={() => { deleteAction(item.id) }}>delete</span> 
+        <tr>
+            <td>{item.attributes.title}</td>
             {completedInfo} 
-            <span>{item.attributes.title}</span>
-        </div>
+            <td onClick={() => { deleteAction(item.id) }}>delete</td>
+        </tr>
     );
   }
 }
