@@ -36,6 +36,9 @@ class App extends Component {
     })
     .then(() => {
       this.items();
+
+      // clear out the field for the next item
+      this.setState({ titleForCreating: "" });
     });
   }
 
