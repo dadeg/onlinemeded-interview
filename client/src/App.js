@@ -20,6 +20,10 @@ class App extends Component {
     this.updateTitle = this.updateTitle.bind(this);
   }
 
+  componentWillMount() {
+    this.items();
+  }
+
   create() {
     const { titleForCreating } = this.state;
 
