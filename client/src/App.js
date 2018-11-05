@@ -23,7 +23,14 @@ class App extends Component {
   create() {
     const { titleForCreating } = this.state;
 
-    fetch(API_BASE_ITEMS_URL, { method: "POST", body: JSON.stringify({ title: titleForCreating }) })
+    fetch(API_BASE_ITEMS_URL, { 
+      method: "POST", 
+      body: JSON.stringify({ title: titleForCreating }) ,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
     .then(() => {
       this.items();
     });
@@ -34,7 +41,14 @@ class App extends Component {
   }
 
   complete(id) {
-    fetch(API_BASE_ITEMS_URL + id, { method: "PUT", body: JSON.stringify({ completed: 1 }) })
+    fetch(API_BASE_ITEMS_URL + id, { 
+      method: "PUT", 
+      body: JSON.stringify({ completed: 1 }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      } 
+    })
     .then(() => {
       this.items();
     });
@@ -49,7 +63,7 @@ class App extends Component {
 
   items() {
     fetch(API_BASE_ITEMS_URL)
-      .then(response => response.text())
+      .then(response => response.json())
       .then(results => {
         console.log(results);
         this.setState({ items: results.data });
