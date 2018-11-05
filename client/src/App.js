@@ -1,15 +1,65 @@
 /* global fetch */
 import React, { Component } from 'react';
 import './App.css';
+import ListItems from './ListItems';
+import CreateItem from './CreateItem';
 
 const API_HOST = "http://ec2-107-20-93-41.compute-1.amazonaws.com";
 const API_PORT = 8000;
 const API_BASE_ITEMS_URL = API_HOST + ":" + API_PORT + "/api/items/";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = { items: [], titleForCreating: "" };
+
+    this.create = this.create.bind(this);
+    this.complete = this.complete.bind(this);
+    this.delete = this.delete.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
+  }
+
+  create() {
+    const { titleForCreating } = this.state;
+
+    fetch(API_BASE_ITEMS_URL, { method: "POST", body: JSON.stringify({ title: titleForCreating }) })
+    .then(() => {
+      this.items();
+    });
+  }
+
+  updateTitle(event) {
+    this.setState({ titleForCreating: event.target.value });
+  }
+
+  complete(id) {
+    fetch(API_BASE_ITEMS_URL + id, { method: "PUT", body: JSON.stringify({ completed: 1 }) })
+    .then(() => {
+      this.items();
+    });
+  }
+
+  delete(id) {
+    fetch(API_BASE_ITEMS_URL + id, { method: "DELETE" })
+      .then(() => {
+        this.items();
+      });
+  }
+
+  items() {
+    fetch(API_BASE_ITEMS_URL)
+      .then(response => response.text())
+      .then(results => {
+        console.log(results);
+        this.setState({ items: results.data });
+      });
+  }
+
   render() {
-    console.log(process.env);
-      fetch(API_BASE_ITEMS_URL).then(console.log);
+      
+    const { items, titleForCreating } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -17,7 +67,9 @@ class App extends Component {
             A todo app
           </p>
         </header>
-
+      
+        <CreateItem onChange={this.updateTitle} createAction={this.create} title={titleForCreating} />
+        <ListItems items={items} completeAction={this.complete} deleteAction={this.delete} />
       </div>
     );
   }

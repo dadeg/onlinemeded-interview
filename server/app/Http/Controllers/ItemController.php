@@ -86,10 +86,9 @@ class ItemController extends Controller
     public function update(Request $request, $id)
     {
         // validate the input
-        $validatedData = $request->validate(['title' => 'required', 'completed' => 'integer']);
+        $validatedData = $request->validate(['completed' => 'integer']);
         
         $item = Item::find($id);
-        $item->title = $validatedData['title'];
         $item->completed = $validatedData['completed'];
         $item->save();
 
