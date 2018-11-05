@@ -31,7 +31,6 @@ class App extends Component {
       method: "POST", 
       body: JSON.stringify({ title: titleForCreating }) ,
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     })
