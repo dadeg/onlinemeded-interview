@@ -45,7 +45,6 @@ class App extends Component {
       method: "PUT", 
       body: JSON.stringify({ completed: 1 }),
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
       } 
     })
