@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import ListItems from './ListItems';
-import CreateItem from './CreateItem';
 
 const API_HOST = "http://ec2-107-20-93-41.compute-1.amazonaws.com";
 const API_PORT = 8000;
@@ -87,8 +86,14 @@ class App extends Component {
           </p>
         </header>
       
-        <CreateItem onChange={this.updateTitle} createAction={this.create} title={titleForCreating} />
-        <ListItems items={items} completeAction={this.complete} deleteAction={this.delete} />
+        <ListItems 
+          items={items} 
+          completeAction={this.complete} 
+          deleteAction={this.delete}
+          onChange={this.updateTitle}
+          createAction={this.create}
+          title={titleForCreating}
+        />
       </div>
     );
   }
